@@ -29,6 +29,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // Mapを使うことで辞書型を作成できる。
+  // Map<keyの値, valueの値>
+  Map<String, dynamic>? paymentIntentData;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +63,31 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> makePayment() async {
-    
+    try {
+      paymentIntentData = await createPaymentInteNt('20', 'JPY');
+    } catch (e) {
+      print('エラー' + e.toString());
+    }
+  }
+
+  createPaymentInteNt(String amount, String currency) {
+    try {
+
+      Map<String, dynamic> body = {
+        'amount': calculateAmount(amount),
+        'currency': currency,
+        'payment_method_types[]': 'card',
+      };
+
+      var response = await 
+
+    } catch (e) {
+      print('エラー' + e.toString());
+    }
+  }
+  calculateAmount(String amount) {
+    // int.parseで文字列を数字にする。
+    final price = int.parse(amount) * 100;
+    return price;
   }
 }
